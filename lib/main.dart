@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:usage_stats/usage_stats.dart';
 import 'package:app_usage/app_usage.dart';
 
 void main() {
@@ -29,13 +27,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<AppUsageInfo> appusage = [];
-  //List<EventUsageInfo> events = [];
-  Duration useTime;
   DateTime startDate = DateTime(
       DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0);
   DateTime endDate = DateTime.now();
   Duration totalDuration;
-  Duration sleepTime;
+
   int minutes = 0;
   bool isloading = false;
   var _isinit = true;
@@ -51,17 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  /* Future<void> initUsage() async {
-    UsageStats.grantUsagePermission();
-
-    List<EventUsageInfo> queryEvents =
-        await UsageStats.queryEvents(startDate, endDate);
-
-    this.setState(() {
-      events = queryEvents.toList();
-    });
-  } */
-
   @override
   Future<void> didChangeDependencies() async {
     if (_isinit) {
@@ -76,14 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
         await getSleepTime();
         print("usage-" + appusage[1].usage.inMinutes.toString());
       });
-      /*   events.sort((a, b) {
-          return a.packageName
-              .toLowerCase()
-              .compareTo(b.packageName.toLowerCase());
-        });
-        appusage.sort((a, b) {
-          return a.appName.toLowerCase().compareTo(b.appName.toLowerCase());
-        }); */
 
       setState(() {
         isloading = false;
